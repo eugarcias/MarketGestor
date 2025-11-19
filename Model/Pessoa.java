@@ -1,5 +1,9 @@
 package Model;
 
+/*
+    Essa classe tem que ser removida quando a "View" for modificada!
+*/
+
 public abstract class Pessoa {
 
     // Atributos
@@ -7,18 +11,18 @@ public abstract class Pessoa {
     private String nome;
     private int idade;
 
-    // Método Construtor de Objeto Vazio
+    // Mï¿½todo Construtor de Objeto Vazio
     public Pessoa() {
     }
 
-    // Método Construtor de Objeto, inserindo dados
+    // Mï¿½todo Construtor de Objeto, inserindo dados
     public Pessoa(int id, String nome, int idade) {
         this.id = id;
         this.nome = nome;
         this.idade = idade;
     }
 
-    // Métodos GET e SET
+    // Mï¿½todos GET e SET
     public int getId() {
         return id;
     }

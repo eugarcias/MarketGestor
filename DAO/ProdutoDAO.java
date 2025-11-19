@@ -107,7 +107,7 @@ public class ProdutoDAO {
             stmt.setString(2, p.getDescricao_produto());
             stmt.setInt(3, p.getQuantidade_estoque());
             stmt.setDouble(4, p.getPreco());
-            stmt.setDate(5, p.getData_cadastro());
+            stmt.setDate(5, (java.sql.Date) p.getData_cadastro());
 
             stmt.execute();
             stmt.close();

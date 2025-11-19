@@ -1,37 +1,41 @@
 package Model;
 
 import java.util.*;
-import DAO.AlunoDAO;
+//import DAO.AlunoDAO;
 import java.sql.SQLException;
+
+/*
+    Essa classe tem que ser removida quando a "View" for modificada!
+*/
 
 public class Aluno extends Pessoa {
 
     // Atributos
     private String curso;
     private int fase;
-    private final AlunoDAO dao; 
+    //private final AlunoDAO dao; 
 
-    // Método Construtor de Objeto Vazio
+    // Mï¿½todo Construtor de Objeto Vazio
     public Aluno() {
-        this.dao = new AlunoDAO(); // inicializado não importa em qual construtor
+        //this.dao = new AlunoDAO(); // inicializado nï¿½o importa em qual construtor
     }
 
-    // Método Construtor de Objeto, inserindo dados
+    // Mï¿½todo Construtor de Objeto, inserindo dados
     public Aluno(String curso, int fase) {
         this.curso = curso;
         this.fase = fase;
-        this.dao = new AlunoDAO(); // inicializado não importa em qual construtor
+        //this.dao = new AlunoDAO(); // inicializado nï¿½o importa em qual construtor
     }
 
-    // Método Construtor usando também o construtor da SUPERCLASSE
+    // Mï¿½todo Construtor usando tambï¿½m o construtor da SUPERCLASSE
     public Aluno(String curso, int fase, int id, String nome, int idade) {
         super(id, nome, idade);
         this.curso = curso;
         this.fase = fase;
-        this.dao = new AlunoDAO(); // inicializado não importa em qual construtor
+        //this.dao = new AlunoDAO(); // inicializado nï¿½o importa em qual construtor
     }
 
-    // Métodos GET e SET
+    // Mï¿½todos GET e SET
     public String getCurso() {
         return curso;
     }
@@ -48,7 +52,7 @@ public class Aluno extends Pessoa {
         this.fase = fase;
     }
 
-    // Override necessário para poder retornar os dados de Pessoa no toString para aluno.
+    // Override necessï¿½rio para poder retornar os dados de Pessoa no toString para aluno.
     @Override
     public String toString() {
         return "\n ID: " + this.getId()
@@ -61,14 +65,15 @@ public class Aluno extends Pessoa {
 
     /*
     
-        ABAIXO OS MÉTODOS PARA USO JUNTO COM O DAO
+        ABAIXO OS Mï¿½TODOS PARA USO JUNTO COM O DAO
         SIMULANDO A ESTRUTURA EM CAMADAS PARA USAR COM BANCOS DE DADOS.
     
      */
     // Retorna a Lista de Alunos(objetos)
     public ArrayList getMinhaLista() {
         //return AlunoDAO.MinhaLista;
-        return dao.getMinhaLista();
+        //return dao.getMinhaLista();
+        return null;
     }
 
     // Cadastra novo aluno
@@ -77,25 +82,25 @@ public class Aluno extends Pessoa {
         int id = this.maiorID() + 1;
         Aluno objeto = new Aluno(curso, fase, id, nome, idade);
 //        AlunoDAO.MinhaLista.add(objeto);
-        dao.InsertAlunoBD(objeto);
+        //dao.InsertAlunoBD(objeto);
         return true;
 
     }
 
-    // Deleta um aluno específico pelo seu campo ID
+    // Deleta um aluno especï¿½fico pelo seu campo ID
     public boolean DeleteAlunoBD(int id) {
 //        int indice = this.procuraIndice(id);
 //        AlunoDAO.MinhaLista.remove(indice);
-        dao.DeleteAlunoBD(id);
+        //dao.DeleteAlunoBD(id);
         return true;
     }
 
-    // Edita um aluno específico pelo seu campo ID
+    // Edita um aluno especï¿½fico pelo seu campo ID
     public boolean UpdateAlunoBD(String curso, int fase, int id, String nome, int idade) {
         Aluno objeto = new Aluno(curso, fase, id, nome, idade);
 //        int indice = this.procuraIndice(id);
 //        AlunoDAO.MinhaLista.set(indice, objeto);
-        dao.UpdateAlunoBD(objeto);
+        //dao.UpdateAlunoBD(objeto);
         return true;
     }
 
@@ -110,11 +115,11 @@ public class Aluno extends Pessoa {
 //        return indice;
 //    }
 
-    // carrega dados de um aluno específico pelo seu ID
+    // carrega dados de um aluno especï¿½fico pelo seu ID
     public Aluno carregaAluno(int id) {
 //        int indice = this.procuraIndice(id);
 //        return AlunoDAO.MinhaLista.get(indice);
-        dao.carregaAluno(id);
+        //dao.carregaAluno(id);
         return null;
     }
     
@@ -122,6 +127,7 @@ public class Aluno extends Pessoa {
         public int maiorID() throws SQLException{
 //    public int maiorID(){
 //        return AlunoDAO.maiorID();
-        return dao.maiorID();
+        //return dao.maiorID();
+        return 0;
     }   
 }

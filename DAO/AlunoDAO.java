@@ -1,6 +1,6 @@
 package DAO;
 
-import Model.Aluno;
+import Model.Produto;
 import java.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,109 +9,105 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class AlunoDAO {
+public class ProdutoDAO {
 
-    public static ArrayList<Aluno> MinhaLista = new ArrayList<Aluno>();
+    public static ArrayList<Produto> MinhaLista = new ArrayList<>();
 
-    public AlunoDAO() {
+    public ProdutoDAO() {
     }
 
+    // Retorna o maior ID da tabela
     public int maiorID() throws SQLException {
-
         int maiorID = 0;
+
         try {
             Statement stmt = this.getConexao().createStatement();
-            ResultSet res = stmt.executeQuery("SELECT MAX(id) id FROM tb_alunos");
-            res.next();
-            maiorID = res.getInt("id");
-
+            ResultSet res = stmt.executeQuery("SELECT MAX(id_produto) AS id_produto FROM tb_produtos");
+            if (res.next()) {
+                maiorID = res.getInt("id_produto");
+            }
             stmt.close();
-
         } catch (SQLException ex) {
+            System.out.println("Erro ao buscar maior ID: " + ex.getMessage());
         }
 
         return maiorID;
     }
 
+    // Conex√£o com o PostgreSQL
     public Connection getConexao() {
-
-        Connection connection = null;  //inst‚ncia da conex„o
+        Connection connection = null;
 
         try {
+            Class.forName("org.postgresql.Driver");
 
-            // Carregamento do JDBC Driver
-            String driver = "com.mysql.cj.jdbc.Driver";
-            Class.forName(driver);
-
-            // Configurar a conex„o
-            String server = "localhost"; //caminho do MySQL
-            String database = "db_alunos";
-            String url = "jdbc:mysql://" + server + ":3306/" + database + "?useTimezone=true&serverTimezone=UTC";
-            String user = "root";
-            String password = "rootpass";
+            String url = "jdbc:postgresql://localhost:5432/db_estoque";
+            String user = "postgres";
+            String password = "2096";
 
             connection = DriverManager.getConnection(url, user, password);
 
-            // Testando..
             if (connection != null) {
                 System.out.println("Status: Conectado!");
-            } else {
-                System.out.println("Status: N√O CONECTADO!");
             }
 
             return connection;
 
-        } catch (ClassNotFoundException e) {  //Driver n„o encontrado
-            System.out.println("O driver nao foi encontrado. " + e.getMessage() );
+        } catch (ClassNotFoundException e) {
+            System.out.println("Driver n√£o encontrado: " + e.getMessage());
             return null;
 
         } catch (SQLException e) {
-            System.out.println("Nao foi possivel conectar...");
+            System.out.println("N√£o foi poss√≠vel conectar ao banco.");
             return null;
         }
     }
 
-    // Retorna a Lista de Alunos(objetos)
-    public ArrayList getMinhaLista() {
-        
-        MinhaLista.clear(); // Limpa nosso ArrayList
+    // Retorna lista de produtos
+    public ArrayList<Produto> getMinhaLista() {
+
+        MinhaLista.clear();
 
         try {
             Statement stmt = this.getConexao().createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM tb_alunos");
+            ResultSet res = stmt.executeQuery("SELECT * FROM tb_produtos ORDER BY id_produto");
+
             while (res.next()) {
 
-                String curso = res.getString("curso");
-                int fase = res.getInt("fase");
-                int id = res.getInt("id");
-                String nome = res.getString("nome");
-                int idade = res.getInt("idade");
+                Produto p = new Produto(
+                    res.getInt("id_produto"),
+                    res.getString("nome_produto"),
+                    res.getString("descricao_produto"),
+                    res.getInt("quantidade_estoque"),
+                    res.getDouble("preco"),
+                    res.getDate("data_cadastro")
+                );
 
-                Aluno objeto = new Aluno(curso, fase, id, nome, idade);
-
-                MinhaLista.add(objeto);
+                MinhaLista.add(p);
             }
 
             stmt.close();
 
         } catch (SQLException ex) {
+            System.out.println("Erro ao listar produtos: " + ex.getMessage());
         }
 
         return MinhaLista;
     }
 
-    // Cadastra novo aluno
-    public boolean InsertAlunoBD(Aluno objeto) {
-        String sql = "INSERT INTO tb_alunos(id,nome,idade,curso,fase) VALUES(?,?,?,?,?)";
+    // Inserir novo produto
+    public boolean insertProdutoBD(Produto p) {
+
+        String sql = "INSERT INTO tb_produtos (nome_produto, descricao_produto, quantidade_estoque, preco, data_cadastro) VALUES (?,?,?,?,?)";
 
         try {
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
 
-            stmt.setInt(1, objeto.getId());
-            stmt.setString(2, objeto.getNome());
-            stmt.setInt(3, objeto.getIdade());
-            stmt.setString(4, objeto.getCurso());
-            stmt.setInt(5, objeto.getFase());
+            stmt.setString(1, p.getNome_produto());
+            stmt.setString(2, p.getDescricao_produto());
+            stmt.setInt(3, p.getQuantidade_estoque());
+            stmt.setDouble(4, p.getPreco());
+            stmt.setDate(5, p.getData_cadastro());
 
             stmt.execute();
             stmt.close();
@@ -119,37 +115,36 @@ public class AlunoDAO {
             return true;
 
         } catch (SQLException erro) {
-            throw new RuntimeException(erro);
+            throw new RuntimeException("Erro ao inserir produto: " + erro.getMessage());
         }
-
     }
 
-    // Deleta um aluno especÌfico pelo seu campo ID
-    public boolean DeleteAlunoBD(int id) {
+    // Deletar produto
+    public boolean deleteProdutoBD(int id) {
         try {
             Statement stmt = this.getConexao().createStatement();
-            stmt.executeUpdate("DELETE FROM tb_alunos WHERE id = " + id);
-            stmt.close();            
-            
+            stmt.executeUpdate("DELETE FROM tb_produtos WHERE id_produto = " + id);
+            stmt.close();
         } catch (SQLException erro) {
+            System.out.println("Erro ao deletar produto: " + erro.getMessage());
         }
-        
+
         return true;
     }
 
-    // Edita um aluno especÌfico pelo seu campo ID
-    public boolean UpdateAlunoBD(Aluno objeto) {
+    // Atualizar produto
+    public boolean updateProdutoBD(Produto p) {
 
-        String sql = "UPDATE tb_alunos set nome = ? ,idade = ? ,curso = ? ,fase = ? WHERE id = ?";
+        String sql = "UPDATE tb_produtos SET nome_produto = ?, descricao_produto = ?, quantidade_estoque = ?, preco = ? WHERE id_produto = ?";
 
         try {
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
 
-            stmt.setString(1, objeto.getNome());
-            stmt.setInt(2, objeto.getIdade());
-            stmt.setString(3, objeto.getCurso());
-            stmt.setInt(4, objeto.getFase());
-            stmt.setInt(5, objeto.getId());
+            stmt.setString(1, p.getNome_produto());
+            stmt.setString(2, p.getDescricao_produto());
+            stmt.setInt(3, p.getQuantidade_estoque());
+            stmt.setDouble(4, p.getPreco());
+            stmt.setInt(5, p.getId_produto());
 
             stmt.execute();
             stmt.close();
@@ -157,30 +152,34 @@ public class AlunoDAO {
             return true;
 
         } catch (SQLException erro) {
-            throw new RuntimeException(erro);
+            throw new RuntimeException("Erro ao atualizar produto: " + erro.getMessage());
         }
-
     }
 
-    public Aluno carregaAluno(int id) {
-        
-        Aluno objeto = new Aluno();
-        objeto.setId(id);
-        
+    // Carregar produto espec√≠fico
+    public Produto carregaProduto(int id) {
+
+        Produto p = new Produto();
+        p.setId_produto(id);
+
         try {
             Statement stmt = this.getConexao().createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM tb_alunos WHERE id = " + id);
-            res.next();
+            ResultSet res = stmt.executeQuery("SELECT * FROM tb_produtos WHERE id_produto = " + id);
 
-            objeto.setNome(res.getString("nome"));
-            objeto.setIdade(res.getInt("idade"));
-            objeto.setCurso(res.getString("curso"));
-            objeto.setFase(res.getInt("fase"));
+            if (res.next()) {
+                p.setNome_produto(res.getString("nome_produto"));
+                p.setDescricao_produto(res.getString("descricao_produto"));
+                p.setQuantidade_estoque(res.getInt("quantidade_estoque"));
+                p.setPreco(res.getDouble("preco"));
+                p.setData_cadastro(res.getDate("data_cadastro"));
+            }
 
-            stmt.close();            
-            
+            stmt.close();
+
         } catch (SQLException erro) {
+            System.out.println("Erro ao carregar produto: " + erro.getMessage());
         }
-        return objeto;
+
+        return p;
     }
 }

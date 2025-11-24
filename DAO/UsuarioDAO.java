@@ -46,7 +46,7 @@ public class UsuarioDAO {
             stmt.execute();
             stmt.execute();
         } catch (SQLException e){
-            throw new RuntimeException("Erro ao cadastrar usuário: " + e)
+            throw new RuntimeException("Erro ao cadastrar usuário: " + e);
         }
     }
 }

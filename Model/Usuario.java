@@ -1,3 +1,5 @@
+package Model;
+
 
 public class Usuario {
     private int idUsuario;

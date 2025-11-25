@@ -3,7 +3,7 @@ package Model;
 import DAO.ProdutoDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 public class Produto {
     
@@ -13,7 +13,8 @@ public class Produto {
     private String descricao_produto;
     private int quantidade_estoque;
     private double preco;
-    private Date data_cadastro; // talvez o "Date" aqui tenha que mudar
+    private Date data_cadastro;
+    private Date data_validade;
     // Atributo DAO
     private final ProdutoDAO dao;
 
@@ -23,13 +24,15 @@ public class Produto {
     }
 
     // Construtor com dados
-    public Produto(int id_produto, String nome_produto, String descricao_produto, int quantidade_estoque, double preco, Date data_cadastro) {
+    public Produto(int id_produto, String nome_produto, String descricao_produto, int quantidade_estoque, double preco, 
+            Date data_cadastro, Date data_validade) {
         this.id_produto = id_produto;
         this.nome_produto = nome_produto;
         this.descricao_produto = descricao_produto;
         this.quantidade_estoque = quantidade_estoque;
         this.preco = preco;
         this.data_cadastro = data_cadastro;
+        this.data_validade = data_validade;
         this.dao = new ProdutoDAO(); // Inicializa o objeto DAO em ambos os construtores
     }
     
@@ -84,6 +87,14 @@ public class Produto {
     public void setData_cadastro(Date data_cadastro) {
         this.data_cadastro = data_cadastro;
     }
+
+    public Date getData_validade() {
+        return data_validade;
+    }
+
+    public void setData_validade(Date data_validade) {
+        this.data_validade = data_validade;
+    }
     
     /*
         Interação com o banco de dados!
@@ -95,10 +106,10 @@ public class Produto {
     }
     
     // Cadastra novo produto
-    public boolean InsertProdutoBD(String nome_produto, String descricao_produto, int quantidade_estoque, double preco, Date data_cadastro) 
-                throws SQLException {
+    public boolean InsertProdutoBD(String nome_produto, String descricao_produto, int quantidade_estoque, double preco, 
+            Date data_cadastro, Date data_validade) throws SQLException {
         int id = this.maiorID() + 1;
-        Produto objeto = new Produto(id, nome_produto, descricao_produto, quantidade_estoque, preco, data_cadastro);
+        Produto objeto = new Produto(id, nome_produto, descricao_produto, quantidade_estoque, preco, data_cadastro, data_validade);
         dao.insertProdutoBD(objeto);
         return true;
 
@@ -112,7 +123,7 @@ public class Produto {
     
     // Edita um produto específico pelo seu ID
     public boolean UpdateProdutoBD(String curso, int fase, int id, String nome, int idade) {
-        Produto objeto = new Produto(id, nome_produto, descricao_produto, quantidade_estoque, preco, data_cadastro);
+        Produto objeto = new Produto(id, nome_produto, descricao_produto, quantidade_estoque, preco, data_cadastro, data_validade);
         dao.updateProdutoBD(objeto);
         return true;
     }

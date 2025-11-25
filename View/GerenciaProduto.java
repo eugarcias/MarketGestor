@@ -1,17 +1,17 @@
 package View;
 
-import Model.Aluno;
+import Model.Produto;
 import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class GerenciaAluno extends javax.swing.JFrame {
+public class GerenciaProduto extends javax.swing.JFrame {
 
-    private Aluno objaluno; // cria o vínculo com o objaluno
+    private Produto objproduto; // cria o vï¿½nculo com o objproduto
 
-    public GerenciaAluno() {
+    public GerenciaProduto() {
         initComponents();
-        this.objaluno = new Aluno(); // carrega objaluno de aluno
+        this.objproduto = new Produto(); // carrega objproduto de aluno
         this.carregaTabela();
     }
 
@@ -25,7 +25,7 @@ public class GerenciaAluno extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableAlunos = new javax.swing.JTable();
+        jTableProdutos = new javax.swing.JTable();
         b_cancelar = new javax.swing.JButton();
         b_alterar = new javax.swing.JButton();
         b_apagar = new javax.swing.JButton();
@@ -41,7 +41,7 @@ public class GerenciaAluno extends javax.swing.JFrame {
         setTitle("Gerenciamento de Alunos");
         setResizable(false);
 
-        jTableAlunos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -64,17 +64,17 @@ public class GerenciaAluno extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableAlunos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableAlunosMouseClicked(evt);
+                jTableProdutosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableAlunos);
-        if (jTableAlunos.getColumnModel().getColumnCount() > 0) {
-            jTableAlunos.getColumnModel().getColumn(0).setMinWidth(30);
-            jTableAlunos.getColumnModel().getColumn(1).setMinWidth(200);
-            jTableAlunos.getColumnModel().getColumn(2).setMinWidth(30);
-            jTableAlunos.getColumnModel().getColumn(3).setMinWidth(100);
+        jScrollPane1.setViewportView(jTableProdutos);
+        if (jTableProdutos.getColumnModel().getColumnCount() > 0) {
+            jTableProdutos.getColumnModel().getColumn(0).setMinWidth(30);
+            jTableProdutos.getColumnModel().getColumn(1).setMinWidth(200);
+            jTableProdutos.getColumnModel().getColumn(2).setMinWidth(30);
+            jTableProdutos.getColumnModel().getColumn(3).setMinWidth(100);
         }
 
         b_cancelar.setText("Cancelar");
@@ -177,7 +177,7 @@ public class GerenciaAluno extends javax.swing.JFrame {
     private void b_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_alterarActionPerformed
 
         try {
-            // recebendo e validando dados da interface gráfica.
+            // recebendo e validando dados da interface grï¿½fica.
             int id = 0;
             String nome = "";
             int idade = 0;
@@ -191,7 +191,7 @@ public class GerenciaAluno extends javax.swing.JFrame {
             }
 
             if (this.c_idade.getText().length() <= 0) {
-                throw new Mensagens("Idade deve ser número e maior que zero.");
+                throw new Mensagens("Idade deve ser nï¿½mero e maior que zero.");
             } else {
                 idade = Integer.parseInt(this.c_idade.getText());
             }
@@ -203,46 +203,46 @@ public class GerenciaAluno extends javax.swing.JFrame {
             }
 
             if (this.c_fase.getText().length() <= 0) {
-                throw new Mensagens("Fase deve ser número e maior que zero.");
+                throw new Mensagens("Fase deve ser nï¿½mero e maior que zero.");
             } else {
                 fase = Integer.parseInt(this.c_fase.getText());
             }
 
-            if (this.jTableAlunos.getSelectedRow() == -1) {
-                throw new Mensagens("Primeiro Selecione um Aluno para Alterar");
+            if (this.jTableProdutos.getSelectedRow() == -1) {
+                throw new Mensagens("Primeiro Selecione um Produto para Alterar");
             } else {
-                id = Integer.parseInt(this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 0).toString());
+                id = Integer.parseInt(this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 0).toString());
             }
 
-            // envia os dados para o Aluno processar
-            if (this.objaluno.UpdateAlunoBD(curso, fase, id, nome, idade)) {
+            // envia os dados para o Produto processar
+            if (this.objproduto.UpdateProdutoBD(curso, fase, id, nome, idade)) {
 
                 // limpa os campos
                 this.c_nome.setText("");
                 this.c_idade.setText("");
                 this.c_curso.setText("");
                 this.c_fase.setText("");
-                JOptionPane.showMessageDialog(rootPane, "Aluno Alterado com Sucesso!");
+                JOptionPane.showMessageDialog(rootPane, "Produto Alterado com Sucesso!");
 
             }
-            System.out.println(this.objaluno.getMinhaLista().toString());
+            System.out.println(this.objproduto.getMinhaLista().toString());
         } catch (Mensagens erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         } catch (NumberFormatException erro2) {
-            JOptionPane.showMessageDialog(null, "Informe um número.");
+            JOptionPane.showMessageDialog(null, "Informe um nï¿½mero.");
         } finally {
             carregaTabela(); // atualiza a tabela.
         }
     }//GEN-LAST:event_b_alterarActionPerformed
 
-    private void jTableAlunosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAlunosMouseClicked
+    private void jTableProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutosMouseClicked
 
-        if (this.jTableAlunos.getSelectedRow() != -1) {
+        if (this.jTableProdutos.getSelectedRow() != -1) {
 
-            String nome = this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 1).toString();
-            String idade = this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 2).toString();
-            String curso = this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 3).toString();
-            String fase = this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 4).toString();
+            String nome = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 1).toString();
+            String idade = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 2).toString();
+            String curso = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 3).toString();
+            String fase = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 4).toString();
 
             this.c_nome.setText(nome);
             this.c_idade.setText(idade);
@@ -250,38 +250,38 @@ public class GerenciaAluno extends javax.swing.JFrame {
             this.c_fase.setText(fase);
 
         }
-    }//GEN-LAST:event_jTableAlunosMouseClicked
+    }//GEN-LAST:event_jTableProdutosMouseClicked
 
     private void b_apagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_apagarActionPerformed
         try {
-            // validando dados da interface gráfica.
+            // validando dados da interface grï¿½fica.
             int id = 0;
-            if (this.jTableAlunos.getSelectedRow() == -1) {
-                throw new Mensagens("Primeiro Selecione um Aluno para APAGAR");
+            if (this.jTableProdutos.getSelectedRow() == -1) {
+                throw new Mensagens("Primeiro Selecione um Produto para APAGAR");
             } else {
-                id = Integer.parseInt(this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 0).toString());
+                id = Integer.parseInt(this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 0).toString());
             }
 
-            // retorna 0 -> primeiro botão | 1 -> segundo botão | 2 -> terceiro botão
-            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja APAGAR este Aluno ?");
+            // retorna 0 -> primeiro botï¿½o | 1 -> segundo botï¿½o | 2 -> terceiro botï¿½o
+            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja APAGAR este Produto ?");
 
             if (resposta_usuario == 0) {// clicou em SIM
 
-                // envia os dados para o Aluno processar
-                if (this.objaluno.DeleteAlunoBD(id)) {
+                // envia os dados para o Produto processar
+                if (this.objproduto.DeleteProdutoBD(id)) {
 
                     // limpa os campos
                     this.c_nome.setText("");
                     this.c_idade.setText("");
                     this.c_curso.setText("");
                     this.c_fase.setText("");
-                    JOptionPane.showMessageDialog(rootPane, "Aluno Apagado com Sucesso!");
+                    JOptionPane.showMessageDialog(rootPane, "Produto Apagado com Sucesso!");
 
                 }
 
             }
 
-            System.out.println(this.objaluno.getMinhaLista().toString());
+            System.out.println(this.objproduto.getMinhaLista().toString());
 
         } catch (Mensagens erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -297,19 +297,19 @@ public class GerenciaAluno extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     public void carregaTabela() {
 
-        DefaultTableModel modelo = (DefaultTableModel) this.jTableAlunos.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) this.jTableProdutos.getModel();
         modelo.setNumRows(0);
 
-        ArrayList<Aluno> minhalista = new ArrayList<>();
-        minhalista = objaluno.getMinhaLista();
+        ArrayList<Produto> minhalista = new ArrayList<>();
+        minhalista = objproduto.getMinhaLista();
 
-        for (Aluno a : minhalista) {
+        for (Produto a : minhalista) { // Dados nÃ£o estÃ£o totalmento corretos aqui porque a view ainda Ã© Aluno (PLACEHOLDER!)
             modelo.addRow(new Object[]{
-                a.getId(),
-                a.getNome(),
-                a.getIdade(),
-                a.getCurso(),
-                a.getFase()
+                a.getId_produto(),
+                a.getNome_produto(),
+                a.getQuantidade_estoque(),
+                a.getDescricao_produto(),
+                a.getQuantidade_estoque()
             });
         }
     }
@@ -328,20 +328,20 @@ public class GerenciaAluno extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GerenciaAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerenciaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GerenciaAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerenciaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GerenciaAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerenciaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GerenciaAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GerenciaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GerenciaAluno().setVisible(true);
+                new GerenciaProduto().setVisible(true);
             }
         });
         
@@ -360,6 +360,6 @@ public class GerenciaAluno extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableAlunos;
+    private javax.swing.JTable jTableProdutos;
     // End of variables declaration//GEN-END:variables
 }

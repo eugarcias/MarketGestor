@@ -18,7 +18,7 @@ public class ProdutoDAO {
             Class.forName("org.postgresql.Driver");
 
             return DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/db_estoque",
+                "jdbc:postgresql://localhost:5432/postgres",
                 "postgres",
                 "2096"
             );
@@ -38,7 +38,7 @@ public class ProdutoDAO {
         try {
             Statement stmt = this.getConexao().createStatement();
             ResultSet res = stmt.executeQuery(
-                "SELECT MAX(id_produto) AS id_produto FROM tb_produtos"
+                "SELECT MAX(id_produto) AS id_produto FROM market_gestor"
             );
 
             if (res.next()) {
@@ -63,7 +63,7 @@ public class ProdutoDAO {
         try {
             Statement stmt = this.getConexao().createStatement();
             ResultSet res = stmt.executeQuery(
-                "SELECT * FROM tb_produtos ORDER BY id_produto"
+                "SELECT * FROM market_gestor ORDER BY id_produto"
             );
 
             while (res.next()) {
@@ -100,7 +100,7 @@ public class ProdutoDAO {
         try {
             Statement stmt = this.getConexao().createStatement();
             ResultSet res = stmt.executeQuery(
-                "SELECT * FROM tb_produtos ORDER BY data_validade ASC"
+                "SELECT * FROM market_gestor ORDER BY data_validade ASC"
             );
 
             while (res.next()) {
@@ -133,7 +133,7 @@ public class ProdutoDAO {
     public boolean insertProdutoBD(Produto p) {
 
         String sql =
-            "INSERT INTO tb_produtos (nome_produto, descricao_produto, quantidade_estoque, preco, data_cadastro, data_validade) " +
+            "INSERT INTO market_gestor (nome_produto, descricao_produto, quantidade_estoque, preco, data_cadastro, data_validade) " +
             "VALUES (?,?,?,?,?,?)";
 
         try {
@@ -163,7 +163,7 @@ public class ProdutoDAO {
 
         try {
             Statement stmt = this.getConexao().createStatement();
-            stmt.executeUpdate("DELETE FROM tb_produtos WHERE id_produto = " + id);
+            stmt.executeUpdate("DELETE FROM market_gestor WHERE id_produto = " + id);
             stmt.close();
 
         } catch (SQLException erro) {
@@ -179,7 +179,7 @@ public class ProdutoDAO {
     public boolean updateProdutoBD(Produto p) {
 
         String sql =
-            "UPDATE tb_produtos SET nome_produto=?, descricao_produto=?, quantidade_estoque=?, preco=?, data_validade=? WHERE id_produto=?";
+            "UPDATE market_gestor SET nome_produto=?, descricao_produto=?, quantidade_estoque=?, preco=?, data_validade=? WHERE id_produto=?";
 
         try {
 
@@ -213,7 +213,7 @@ public class ProdutoDAO {
 
             Statement stmt = this.getConexao().createStatement();
             ResultSet res = stmt.executeQuery(
-                "SELECT * FROM tb_produtos WHERE id_produto = " + id
+                "SELECT * FROM market_gestor WHERE id_produto = " + id
             );
 
             if (res.next()) {

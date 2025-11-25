@@ -1,18 +1,18 @@
 package View;
 
-import Model.Aluno;
+import Model.Produto;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class CadastroAluno extends javax.swing.JFrame {
+public class CadastroProduto extends javax.swing.JFrame {
 
-    private Aluno objaluno; // cria o vínculo com o Aluno.java
+    private Produto objproduto; // cria o vï¿½nculo com o Produto.java
 
-    public CadastroAluno() {
+    public CadastroProduto() {
         initComponents();
-        this.objaluno = new Aluno(); // carrega objeto vazio de aluno
+        this.objproduto = new Produto(); // carrega objeto vazio de aluno
     }
 
     /**
@@ -149,7 +149,7 @@ public class CadastroAluno extends javax.swing.JFrame {
     private void b_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cadastrarActionPerformed
 
         try {
-            // recebendo e validando dados da interface gráfica.
+            // recebendo e validando dados da interface grï¿½fica.
             String nome = "";
             int idade = 0;
             String curso = "";
@@ -162,7 +162,7 @@ public class CadastroAluno extends javax.swing.JFrame {
             }
 
             if (this.c_idade.getText().length() <= 0) {
-                throw new Mensagens("Idade deve ser número e maior que zero.");
+                throw new Mensagens("Idade deve ser nï¿½mero e maior que zero.");
             } else {
                 idade = Integer.parseInt(this.c_idade.getText());
             }
@@ -174,14 +174,14 @@ public class CadastroAluno extends javax.swing.JFrame {
             }
 
             if (this.c_fase.getText().length() <= 0) {
-                throw new Mensagens("Fase deve ser número e maior que zero.");
+                throw new Mensagens("Fase deve ser nï¿½mero e maior que zero.");
             } else {
                 fase = Integer.parseInt(this.c_fase.getText());
             }
 
-            // envia os dados para o Controlador cadastrar
-            if (this.objaluno.InsertAlunoBD(curso, fase, nome, idade)) {
-                JOptionPane.showMessageDialog(rootPane, "Aluno Cadastrado com Sucesso!");
+            // envia os dados para o Controlador cadastrar (dados PLACEHOLDER pq a view ainda tem dados do Aluno)
+            if (this.objproduto.InsertProdutoBD(nome, nome, 0, 0.0, java.sql.Date.valueOf("2025-11-25"), java.sql.Date.valueOf("2025-11-30"))) {
+                JOptionPane.showMessageDialog(rootPane, "Produto Cadastrado com Sucesso!");
 
                 // limpa campos da interface
                 this.c_nome.setText("");
@@ -191,14 +191,14 @@ public class CadastroAluno extends javax.swing.JFrame {
 
             }
 
-            System.out.println(this.objaluno.getMinhaLista().toString());
+            System.out.println(this.objproduto.getMinhaLista().toString());
 
         } catch (Mensagens erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         } catch (NumberFormatException erro2) {
-            JOptionPane.showMessageDialog(null, "Informe um número.");
+            JOptionPane.showMessageDialog(null, "Informe um nï¿½mero.");
         } catch (SQLException ex) {
-            Logger.getLogger(CadastroAluno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
@@ -227,20 +227,20 @@ public class CadastroAluno extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroAluno().setVisible(true);
+                new CadastroProduto().setVisible(true);
             }
         });
     }

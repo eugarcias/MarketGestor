@@ -20,7 +20,7 @@ public class ProdutoDAO {
             return DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/postgres",
                 "postgres",
-                "32462600"
+                "2096"
             );
 
         } catch (Exception e) {

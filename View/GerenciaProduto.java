@@ -45,7 +45,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
         c_datavalidade = new javax.swing.JTextField();
         c_preco = new javax.swing.JTextField();
 
-        setTitle("Gerenciamento de Alunos");
+        setTitle("Gerenciamento de Produtos");
         setResizable(false);
 
         jTableProdutos.setModel(new javax.swing.table.DefaultTableModel(
@@ -110,6 +110,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
 
         jLabel2.setText("ID do Produto");
 
+        c_idproduto.setEditable(false);
         c_idproduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 c_idprodutoActionPerformed(evt);
@@ -347,12 +348,12 @@ public class GerenciaProduto extends javax.swing.JFrame {
         if (this.jTableProdutos.getSelectedRow() != -1) {
 
             String nome_produto = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 1).toString();
-            String id_produto = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 2).toString();
-            String descricao_produto = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 3).toString();
-            String quantidade_estoque = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 4).toString();
-            String preco = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 5).toString();
-            String data_cadastro = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 6).toString();
-            String data_validade = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 7).toString();
+            String id_produto = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 0).toString();
+            String descricao_produto = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 2).toString();
+            String quantidade_estoque = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 3).toString();
+            String preco = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 4).toString();
+            String data_cadastro = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 5).toString();
+            String data_validade = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 6).toString();
 
             this.c_nomeproduto.setText(nome_produto);
             this.c_idproduto.setText(id_produto);
@@ -376,11 +377,11 @@ public class GerenciaProduto extends javax.swing.JFrame {
             }
 
             // retorna 0 -> primeiro bot�o | 1 -> segundo bot�o | 2 -> terceiro bot�o
-            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja APAGAR este Aluno ?");
+            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja APAGAR este Produto ?");
 
             if (resposta_usuario == 0) {// clicou em SIM
 
-                // envia os dados para o Aluno processar
+                // envia os dados para o Produto processar
                 if (this.objproduto.DeleteProdutoBD(id)) {
 
                 // limpa os campos

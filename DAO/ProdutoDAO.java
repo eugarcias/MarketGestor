@@ -10,9 +10,7 @@ public class ProdutoDAO {
 
     public ProdutoDAO() {}
 
-    // -----------------------------------------
-    // CONEXÃO COM O BANCO
-    // -----------------------------------------
+
     public Connection getConexao() {
         try {
             Class.forName("org.postgresql.Driver");
@@ -20,7 +18,7 @@ public class ProdutoDAO {
             return DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/postgres",
                 "postgres",
-                "2096"
+                "2096" //
             );
 
         } catch (Exception e) {
@@ -29,9 +27,6 @@ public class ProdutoDAO {
         }
     }
 
-    // -----------------------------------------
-    // MAIOR ID
-    // -----------------------------------------
     public int maiorID() {
         int maiorID = 0;
 
@@ -53,9 +48,6 @@ public class ProdutoDAO {
         return maiorID;
     }
 
-    // -----------------------------------------
-    // LISTAR TODOS OS PRODUTOS
-    // -----------------------------------------
     public ArrayList<Produto> getMinhaLista() {
 
         MinhaLista.clear();
@@ -74,7 +66,7 @@ public class ProdutoDAO {
                     res.getString("descricao_produto"),
                     res.getInt("quantidade_estoque"),
                     res.getDouble("preco"),
-                    res.getDate("data_cadastro"),
+                    res.getDate("data_cadastro"),  // automático
                     res.getDate("data_validade")
                 );
 
@@ -90,9 +82,7 @@ public class ProdutoDAO {
         return MinhaLista;
     }
 
-    // -----------------------------------------
-    // LISTAR ORDENADO POR DATA DE VALIDADE
-    // -----------------------------------------
+   
     public ArrayList<Produto> listarPorValidade() {
 
         ArrayList<Produto> lista = new ArrayList<>();
@@ -127,14 +117,12 @@ public class ProdutoDAO {
         return lista;
     }
 
-    // -----------------------------------------
-    // INSERIR PRODUTO
-    // -----------------------------------------
     public boolean insertProdutoBD(Produto p) {
 
+        // ⛔ NÃO enviamos data_cadastro (agora automática)
         String sql =
-            "INSERT INTO market_gestor (nome_produto, descricao_produto, quantidade_estoque, preco, data_cadastro, data_validade) " +
-            "VALUES (?,?,?,?,?,?)";
+            "INSERT INTO market_gestor (nome_produto, descricao_produto, quantidade_estoque, preco, data_validade) " +
+            "VALUES (?,?,?,?,?)";
 
         try {
 
@@ -144,8 +132,7 @@ public class ProdutoDAO {
             stmt.setString(2, p.getDescricao_produto());
             stmt.setInt(3, p.getQuantidade_estoque());
             stmt.setDouble(4, p.getPreco());
-            stmt.setDate(5, p.getData_cadastro());
-            stmt.setDate(6, p.getData_validade());
+            stmt.setDate(5, p.getData_validade());
 
             stmt.execute();
             stmt.close();
@@ -156,9 +143,6 @@ public class ProdutoDAO {
         }
     }
 
-    // -----------------------------------------
-    // DELETAR
-    // -----------------------------------------
     public boolean deleteProdutoBD(int id) {
 
         try {
@@ -173,9 +157,7 @@ public class ProdutoDAO {
         return true;
     }
 
-    // -----------------------------------------
-    // ATUALIZAR
-    // -----------------------------------------
+  
     public boolean updateProdutoBD(Produto p) {
 
         String sql =
@@ -201,9 +183,7 @@ public class ProdutoDAO {
         }
     }
 
-    // -----------------------------------------
-    // CARREGAR PRODUTO ESPECÍFICO
-    // -----------------------------------------
+  
     public Produto carregaProduto(int id) {
 
         Produto p = new Produto();
@@ -221,7 +201,7 @@ public class ProdutoDAO {
                 p.setDescricao_produto(res.getString("descricao_produto"));
                 p.setQuantidade_estoque(res.getInt("quantidade_estoque"));
                 p.setPreco(res.getDouble("preco"));
-                p.setData_cadastro(res.getDate("data_cadastro"));
+                p.setData_cadastro(res.getDate("data_cadastro")); // automático
                 p.setData_validade(res.getDate("data_validade"));
             }
 

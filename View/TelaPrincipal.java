@@ -15,7 +15,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      * Creates new form TelaPrincipal
      */
     
-    GerenciaProduto objeto = new GerenciaProduto();
+    GerenciaAluno objeto = new GerenciaAluno();
     
     public TelaPrincipal() {
         initComponents();
@@ -90,7 +90,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        CadastroProduto objeto = new CadastroProduto();
+        CadastroAluno objeto = new CadastroAluno();
         objeto.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -100,7 +100,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-//        GerenciaProduto objeto = new GerenciaProduto();
+//        GerenciaAluno objeto = new GerenciaAluno();
 
         objeto.setVisible(true);
         objeto.carregaTabela();

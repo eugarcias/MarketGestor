@@ -122,8 +122,8 @@ public class Produto {
     }
     
     // Edita um produto específico pelo seu ID
-    public boolean UpdateProdutoBD(String curso, int fase, int id, String nome, int idade) {
-        Produto objeto = new Produto(id, nome_produto, descricao_produto, quantidade_estoque, preco, data_cadastro, data_validade);
+    public boolean UpdateProdutoBD(int id_produto, String nome_produto, String descricao_produto, int quantidade_estoque, double preco, Date data_cadastro, Date data_validade) {
+        Produto objeto = new Produto(id_produto, nome_produto, descricao_produto, quantidade_estoque, preco, data_cadastro, data_validade);
         dao.updateProdutoBD(objeto);
         return true;
     }

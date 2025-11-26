@@ -280,15 +280,9 @@ public class CadastroProduto extends javax.swing.JFrame {
 
             }
 
-            System.out.println(this.objproduto.getMinhaLista().toString());
+            
 
-        } catch (Mensagens erro) {
-            JOptionPane.showMessageDialog(null, erro.getMessage());
-        } catch (NumberFormatException erro2) {
-            JOptionPane.showMessageDialog(null, "Informe um n�mero.");
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastroProduto.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
         
          catch (Mensagens erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage(), "Erro de Validação", JOptionPane.WARNING_MESSAGE);

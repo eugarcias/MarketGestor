@@ -16,7 +16,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         a_cadastrar_produto = new javax.swing.JButton();
         a_gerenciar_produtos = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        a_sobre = new javax.swing.JButton();
+        c_logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Interface de Teste");
@@ -57,52 +58,60 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("Sobre...");
-        jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        a_sobre.setBackground(new java.awt.Color(204, 204, 204));
+        a_sobre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        a_sobre.setForeground(new java.awt.Color(0, 0, 0));
+        a_sobre.setText("Sobre...");
+        a_sobre.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        a_sobre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                a_sobreActionPerformed(evt);
             }
         });
+
+        c_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logoFINAL.png"))); // NOI18N
 
         c_tela.setLayer(a_cadastrar_produto, javax.swing.JLayeredPane.DEFAULT_LAYER);
         c_tela.setLayer(a_gerenciar_produtos, javax.swing.JLayeredPane.DEFAULT_LAYER);
         c_tela.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        c_tela.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        c_tela.setLayer(a_sobre, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        c_tela.setLayer(c_logo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout c_telaLayout = new javax.swing.GroupLayout(c_tela);
         c_tela.setLayout(c_telaLayout);
         c_telaLayout.setHorizontalGroup(
             c_telaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, c_telaLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, c_telaLayout.createSequentialGroup()
-                .addContainerGap(143, Short.MAX_VALUE)
+            .addGroup(c_telaLayout.createSequentialGroup()
+                .addContainerGap(208, Short.MAX_VALUE)
                 .addGroup(c_telaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, c_telaLayout.createSequentialGroup()
-                        .addComponent(a_cadastrar_produto)
-                        .addGap(80, 80, 80)
-                        .addComponent(a_gerenciar_produtos)
-                        .addGap(123, 123, 123))
+                        .addComponent(c_logo)
+                        .addGap(20, 20, 20))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, c_telaLayout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(364, 364, 364))))
+                        .addComponent(a_cadastrar_produto)
+                        .addGap(74, 74, 74)
+                        .addComponent(a_gerenciar_produtos))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, c_telaLayout.createSequentialGroup()
+                        .addComponent(a_sobre)
+                        .addGap(241, 241, 241)))
+                .addGap(155, 155, 155)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         c_telaLayout.setVerticalGroup(
             c_telaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(c_telaLayout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(176, 176, 176)
+                .addGroup(c_telaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(c_telaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(c_logo)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(c_telaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(a_cadastrar_produto)
                     .addComponent(a_gerenciar_produtos))
-                .addGap(52, 52, 52)
-                .addComponent(jButton2)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addGap(3, 3, 3)
+                .addComponent(a_sobre)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -135,9 +144,29 @@ public class TelaPrincipal extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void a_sobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_sobreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    String mensagem = "════════════════════════════════════════\n" +
+        "              MARKET GESTOR\n" +
+        "       Sistema de Gerenciamento\n" +
+        "════════════════════════════════════════\n\n" +
+        "Versão: 1.0.0\n\n" +
+        "Desenvolvido por:\n" +
+        "  • William Gomes\n" +
+        "  • Gabriel Salazar\n" +
+        "  • Guilherme M. Meira\n" +
+        "  • Mauricio Garcia\n" +
+        "  • Samuel Gois\n\n" +
+        "Descrição:\n" +
+        "Sistema para gerenciamento de produtos,\n" +
+        "controle de estoque e cadastros.\n\n" +
+        "© 2025 - Todos os direitos reservados. ";
+    
+    JOptionPane.showMessageDialog(this, mensagem, "Sobre o Market Gestor", JOptionPane.INFORMATION_MESSAGE);
+
+
+        
+    }//GEN-LAST:event_a_sobreActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -174,8 +203,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton a_cadastrar_produto;
     private javax.swing.JButton a_gerenciar_produtos;
+    private javax.swing.JButton a_sobre;
+    private javax.swing.JLabel c_logo;
     private javax.swing.JDesktopPane c_tela;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }

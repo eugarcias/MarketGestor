@@ -100,27 +100,32 @@ public class Produto {
         Interação com o banco de dados!
     */
     
-    // Retorna a Lista de Produtos(objetos)
-    public ArrayList getMinhaLista() {
-        return dao.getMinhaLista();
+    // Retorna a Lista de Produtos(objetos) pelo ID
+    public ArrayList ordenarPorID() {
+        return dao.ordenarPorID();
     }
     
+    // Retorna a Lista de Produtos(objetos) pelo Preço (mais baratos primeiro)
     public ArrayList ordenarPorPrecoASC() {
         return dao.ordenarPorPrecoASC();
     }
 
+    // Retorna a Lista de Produtos(objetos) pelo Preço (mais caros primeiro)
     public ArrayList ordenarPorPrecoDESC() {
         return dao.ordenarPorPrecoDESC();
     }
 
+    // Retorna a Lista de Produtos(objetos) pelo Nome
     public ArrayList ordenarPorNome() {
         return dao.ordenarPorNome();
     }
 
+    // Retorna a Lista de Produtos(objetos) pela Quantidade
     public ArrayList ordenarPorQuantidade() {
         return dao.ordenarPorQuantidade();
     }
 
+    // Retorna a Lista de Produtos(objetos) pela Validade (mais perto de vencer primeiro)
     public ArrayList ordenarPorValidade() {
         return dao.ordenarPorValidade();
     }
@@ -128,7 +133,7 @@ public class Produto {
     // Cadastra novo produto
     public boolean InsertProdutoBD(String nome_produto, String descricao_produto, int quantidade_estoque, double preco, 
             Date data_cadastro, Date data_validade) throws SQLException {
-        int id = this.maiorID() + 1;
+        int id = this.id_produto;
         Produto objeto = new Produto(id, nome_produto, descricao_produto, quantidade_estoque, preco, data_cadastro, data_validade);
         dao.insertProdutoBD(objeto);
         return true;
@@ -152,10 +157,5 @@ public class Produto {
     public Produto carregaProduto(int id) {
         dao.carregaProduto(id);
         return null;
-    }
-    
-    // Retorna o maior ID do banco de dados
-    public int maiorID() throws SQLException{
-        return dao.maiorID();
-    }   
+    } 
 }

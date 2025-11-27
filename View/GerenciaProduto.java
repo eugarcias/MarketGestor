@@ -13,6 +13,7 @@ import java.awt.Insets;
 import javax.swing.table.JTableHeader;
 import javax.swing.border.Border;
 import DAO.ProdutoDAO;
+import java.text.SimpleDateFormat;
 
 public class GerenciaProduto extends javax.swing.JFrame {
 
@@ -59,6 +60,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         c_descricaoproduto = new javax.swing.JTextArea();
         c_tipoorg = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setTitle("Gerenciamento de Produtos");
         setBackground(new java.awt.Color(0, 0, 0));
@@ -164,12 +166,14 @@ public class GerenciaProduto extends javax.swing.JFrame {
         c_descricaoproduto.setWrapStyleWord(true);
         jScrollPane2.setViewportView(c_descricaoproduto);
 
-        c_tipoorg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Preço (ASC)", "Preço (DSC)", "Nome", "Quantidade", "Validade" }));
+        c_tipoorg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Preço (Mais Baratos)", "Preço (Mais Caros)", "Nome", "Quantidade", "Validade" }));
         c_tipoorg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 c_tipoorgActionPerformed(evt);
             }
         });
+
+        jLabel2.setText("Organizar tabela por:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,8 +209,11 @@ public class GerenciaProduto extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(c_tipoorg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(c_tipoorg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -215,7 +222,9 @@ public class GerenciaProduto extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(c_tipoorg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(c_tipoorg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -272,8 +281,8 @@ public class GerenciaProduto extends javax.swing.JFrame {
             }
 
             // Descrição
-            if (this.c_descricaoproduto.getText().trim().length() < 10) {
-                throw new Mensagens("A descrição deve conter ao menos 10 caracteres.");
+            if (this.c_descricaoproduto.getText().trim().length() < 3) {
+                throw new Mensagens("A descrição deve conter ao menos 3 caracteres.");
             } else {
                 descricao_produto = this.c_descricaoproduto.getText().trim();
             }
@@ -337,7 +346,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
 
             }
         
-        System.out.println(this.objproduto.getMinhaLista().toString());
+        System.out.println(this.objproduto.ordenarPorID().toString());
 
     } catch (Mensagens erro) {
         JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -353,18 +362,21 @@ public class GerenciaProduto extends javax.swing.JFrame {
         if (this.jTableProdutos.getSelectedRow() != -1) {
 
             String nome_produto = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 1).toString();
-            String id_produto = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 0).toString();
             String descricao_produto = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 2).toString();
             String quantidade_estoque = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 3).toString();
             String preco = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 4).toString();
-            String data_cadastro = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 5).toString();
-            String data_validade = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 6).toString();
+            String data_validadeString = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 6).toString();
 
+            // converter a data de formato SQL (2025-02-25) para formato dd/mm/yyyy (25/02/2025)
+            Date data_validade = Date.valueOf(data_validadeString);
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String formattedDate = formatter.format(data_validade);
+            
             this.c_nomeproduto.setText(nome_produto);
             this.c_descricaoproduto.setText(descricao_produto);
             this.c_quantidadeestoque.setText(quantidade_estoque);
             this.c_preco.setText(preco);
-            this.c_datavalidade.setText(data_validade);
+            this.c_datavalidade.setText(formattedDate);
 
         }
     }//GEN-LAST:event_jTableProdutosMouseClicked
@@ -399,7 +411,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
 
             }
 
-            System.out.println(this.objproduto.getMinhaLista().toString());
+            System.out.println(this.objproduto.ordenarPorID().toString());
 
         } catch (Mensagens erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -431,16 +443,14 @@ public class GerenciaProduto extends javax.swing.JFrame {
         modelo.setNumRows(0);
 
         ArrayList<Produto> minhalista = new ArrayList<>();
-        
-        int index = c_tipoorg.getSelectedIndex();
 
-        switch (index) {
-            case 0 -> minhalista = objproduto.getMinhaLista();
-            case 1 -> minhalista = objproduto.ordenarPorPrecoASC();
-            case 2 -> minhalista = objproduto.ordenarPorPrecoDESC();
-            case 3 -> minhalista = objproduto.ordenarPorNome();
-            case 4 -> minhalista = objproduto.ordenarPorQuantidade();
-            case 5 -> minhalista = objproduto.ordenarPorValidade();
+        switch ( c_tipoorg.getSelectedIndex()) { // muda a organização com base na Combo Box
+            case 0 -> minhalista = objproduto.ordenarPorID(); // "ID"
+            case 1 -> minhalista = objproduto.ordenarPorPrecoASC(); // "Preco (Mais Baratos)"
+            case 2 -> minhalista = objproduto.ordenarPorPrecoDESC(); // "Preco (Mais Caros)"
+            case 3 -> minhalista = objproduto.ordenarPorNome(); // "Nome"
+            case 4 -> minhalista = objproduto.ordenarPorQuantidade(); // "Quantidade"
+            case 5 -> minhalista = objproduto.ordenarPorValidade(); // "Validade"
         }
 
         for (Produto p : minhalista) {
@@ -496,6 +506,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
     private javax.swing.JTextField c_quantidadeestoque;
     private javax.swing.JComboBox<String> c_tipoorg;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

@@ -21,7 +21,7 @@ public class ProdutoDAO {
             return DriverManager.getConnection(
                 "jdbc:postgresql://localhost:5432/postgres",
                 "postgres",
-                "2096"
+                "32462600"
             );
         } catch (Exception e) {
             System.out.println("Erro de conexão: " + e.getMessage());
@@ -93,6 +93,7 @@ public class ProdutoDAO {
 
     //  ORDENAÇÕES PÚBLICAS  //
 
+    public ArrayList<Produto> ordenarPorID() { return listarComFiltroOrdenacao(null, "id_produto", "ASC", 0, null); }
     public ArrayList<Produto> ordenarPorPrecoASC() { return listarComFiltroOrdenacao(null, "preco", "ASC", 0, null); }
     public ArrayList<Produto> ordenarPorPrecoDESC() { return listarComFiltroOrdenacao(null, "preco", "DESC", 0, null); }
     public ArrayList<Produto> ordenarPorNome() { return listarComFiltroOrdenacao(null, "nome_produto", "ASC", 0, null); }

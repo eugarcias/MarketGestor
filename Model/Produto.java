@@ -105,6 +105,26 @@ public class Produto {
         return dao.getMinhaLista();
     }
     
+    public ArrayList ordenarPorPrecoASC() {
+        return dao.ordenarPorPrecoASC();
+    }
+
+    public ArrayList ordenarPorPrecoDESC() {
+        return dao.ordenarPorPrecoDESC();
+    }
+
+    public ArrayList ordenarPorNome() {
+        return dao.ordenarPorNome();
+    }
+
+    public ArrayList ordenarPorQuantidade() {
+        return dao.ordenarPorQuantidade();
+    }
+
+    public ArrayList ordenarPorValidade() {
+        return dao.ordenarPorValidade();
+    }
+    
     // Cadastra novo produto
     public boolean InsertProdutoBD(String nome_produto, String descricao_produto, int quantidade_estoque, double preco, 
             Date data_cadastro, Date data_validade) throws SQLException {

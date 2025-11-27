@@ -3,6 +3,9 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="title" type="java.lang.String" value="Gerenciamento de Produtos"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="0" green="0" red="0" type="rgb"/>
+    </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -24,93 +27,89 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="120" max="32767" attributes="0"/>
                       <Component id="b_cancelar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="b_alterar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="b_apagar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="487" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="c_quantidadeestoque" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
-                  <Component id="jLabel4" alignment="0" min="-2" pref="131" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel2" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
-                          <Component id="c_idproduto" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
-                          <Component id="c_nomeproduto" alignment="0" min="-2" pref="219" max="-2" attributes="0"/>
-                          <Component id="c_descricaoproduto" alignment="0" min="-2" pref="170" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="344" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel1" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
+                                  <Component id="c_nomeproduto" min="-2" pref="148" max="-2" attributes="0"/>
+                                  <Component id="jLabel4" min="-2" pref="131" max="-2" attributes="0"/>
+                                  <Component id="c_quantidadeestoque" min="-2" pref="148" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="c_datavalidade" pref="148" max="32767" attributes="0"/>
+                                  <Component id="jLabel7" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
+                                  <Component id="jLabel5" alignment="0" min="-2" pref="83" max="-2" attributes="0"/>
+                                  <Component id="c_preco" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="c_datavalidade" min="-2" pref="55" max="-2" attributes="0"/>
-                          <Component id="c_datacadastro" min="-2" pref="55" max="-2" attributes="0"/>
-                          <Component id="jLabel7" min="-2" pref="83" max="-2" attributes="0"/>
-                          <Component id="jLabel5" min="-2" pref="83" max="-2" attributes="0"/>
-                          <Component id="jLabel6" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
-                          <Component id="c_preco" min="-2" pref="55" max="-2" attributes="0"/>
+                          <Component id="c_tipoorg" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="824" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="351" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="230" max="32767" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="226" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="c_tipoorg" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="c_idproduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="c_nomeproduto" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="c_preco" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="c_nomeproduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="c_datacadastro" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="c_descricaoproduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="c_datavalidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="c_quantidadeestoque" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="c_datavalidade" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="c_quantidadeestoque" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane2" min="-2" pref="72" max="-2" attributes="0"/>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="b_cancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="b_alterar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="b_apagar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -125,40 +124,52 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="jTableProdutos">
           <Properties>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                <TitledBorder/>
+              </Border>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="SansSerif" size="12" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="21" green="21" red="21" type="rgb"/>
+            </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="7" rowCount="8">
-                <Column editable="false" title="id_produto" type="java.lang.Object"/>
-                <Column editable="false" title="nome_produto" type="java.lang.Object"/>
-                <Column editable="false" title="descricao_produto" type="java.lang.Object"/>
-                <Column editable="false" title="quantidade_estoque" type="java.lang.Object"/>
-                <Column editable="false" title="preco" type="java.lang.Object"/>
-                <Column editable="false" title="data_cadastro" type="java.lang.Object"/>
-                <Column editable="false" title="data_validade" type="java.lang.Object"/>
+              <Table columnCount="7" rowCount="10">
+                <Column editable="false" title="ID do Produto" type="java.lang.Object"/>
+                <Column editable="false" title="Nome do Produto" type="java.lang.Object"/>
+                <Column editable="false" title="Descri&#xe7;&#xe3;o" type="java.lang.Object"/>
+                <Column editable="false" title="Quantidade" type="java.lang.Object"/>
+                <Column editable="false" title="Pre&#xe7;o" type="java.lang.Object"/>
+                <Column editable="false" title="Data de Cadastro" type="java.lang.Object"/>
+                <Column editable="false" title="Data de Validade" type="java.lang.Object"/>
               </Table>
             </Property>
+            <Property name="autoResizeMode" type="int" value="4"/>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
-                <Column maxWidth="-1" minWidth="30" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="100" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="30" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="100" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="50" prefWidth="-1" resizable="true">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -175,8 +186,24 @@
                 </Column>
               </TableColumnModel>
             </Property>
+            <Property name="fillsViewportHeight" type="boolean" value="true"/>
+            <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="dd" green="dd" red="dd" type="rgb"/>
+            </Property>
+            <Property name="intercellSpacing" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[0, 1]"/>
+            </Property>
+            <Property name="name" type="java.lang.String" value="" noResource="true"/>
+            <Property name="rowHeight" type="int" value="25"/>
+            <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f3" green="96" red="21" type="rgb"/>
+            </Property>
+            <Property name="selectionForeground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="showGrid" type="boolean" value="true"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+              <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
             </Property>
           </Properties>
           <Events>
@@ -216,25 +243,10 @@
     </Component>
     <Component class="javax.swing.JTextField" name="c_nomeproduto">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="ID do Produto"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="c_idproduto">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="c_idprodutoActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o do Produto"/>
+        <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="c_descricaoproduto">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -251,16 +263,6 @@
         <Property name="text" type="java.lang.String" value="Pre&#xe7;o"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="c_datacadastro">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="c_datacadastroActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Data de cadastro"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
         <Property name="text" type="java.lang.String" value="Data de validade"/>
@@ -275,6 +277,43 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="c_precoActionPerformed"/>
       </Events>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="c_descricaoproduto">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="lineWrap" type="boolean" value="true"/>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="wrapStyleWord" type="boolean" value="true"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JComboBox" name="c_tipoorg">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="6">
+            <StringItem index="0" value="ID"/>
+            <StringItem index="1" value="Pre&#xe7;o (ASC)"/>
+            <StringItem index="2" value="Pre&#xe7;o (DSC)"/>
+            <StringItem index="3" value="Nome"/>
+            <StringItem index="4" value="Quantidade"/>
+            <StringItem index="5" value="Validade"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="c_tipoorgActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

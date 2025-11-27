@@ -5,6 +5,14 @@ import java.util.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Insets;
+import javax.swing.table.JTableHeader;
+import javax.swing.border.Border;
+import DAO.ProdutoDAO;
 
 public class GerenciaProduto extends javax.swing.JFrame {
 
@@ -14,6 +22,15 @@ public class GerenciaProduto extends javax.swing.JFrame {
         initComponents();
         this.objproduto = new Produto(); // carrega objproduto
         this.carregaTabela();
+        
+    // Cabeçalho da tabela
+    JTableHeader header = jTableProdutos.getTableHeader();
+    header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+    header.setBackground(new Color(46, 125, 50));
+    header.setForeground(Color.WHITE);
+
+    // Borda arredondada no JScrollPane
+    jScrollPane1.setBorder(new javax.swing.border.LineBorder(new Color(221, 221, 221), 1, true));
     }
 
     /**
@@ -32,24 +49,28 @@ public class GerenciaProduto extends javax.swing.JFrame {
         b_apagar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         c_nomeproduto = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        c_idproduto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        c_descricaoproduto = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         c_quantidadeestoque = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        c_datacadastro = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         c_datavalidade = new javax.swing.JTextField();
         c_preco = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        c_descricaoproduto = new javax.swing.JTextArea();
+        c_tipoorg = new javax.swing.JComboBox<>();
 
         setTitle("Gerenciamento de Produtos");
+        setBackground(new java.awt.Color(0, 0, 0));
         setResizable(false);
 
+        jTableProdutos.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jTableProdutos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTableProdutos.setForeground(new java.awt.Color(33, 33, 33));
         jTableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -60,7 +81,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "id_produto", "nome_produto", "descricao_produto", "quantidade_estoque", "preco", "data_cadastro", "data_validade"
+                "ID do Produto", "Nome do Produto", "Descrição", "Quantidade", "Preço", "Data de Cadastro", "Data de Validade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -71,19 +92,22 @@ public class GerenciaProduto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableProdutos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        jTableProdutos.setFillsViewportHeight(true);
+        jTableProdutos.setGridColor(new java.awt.Color(221, 221, 221));
+        jTableProdutos.setIntercellSpacing(new java.awt.Dimension(0, 1));
+        jTableProdutos.setName(""); // NOI18N
+        jTableProdutos.setRowHeight(25);
+        jTableProdutos.setSelectionBackground(new java.awt.Color(33, 150, 243));
+        jTableProdutos.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jTableProdutos.setShowGrid(true);
+        jTableProdutos.getTableHeader().setReorderingAllowed(false);
         jTableProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableProdutosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTableProdutos);
-        if (jTableProdutos.getColumnModel().getColumnCount() > 0) {
-            jTableProdutos.getColumnModel().getColumn(0).setMinWidth(30);
-            jTableProdutos.getColumnModel().getColumn(1).setMinWidth(100);
-            jTableProdutos.getColumnModel().getColumn(2).setMinWidth(30);
-            jTableProdutos.getColumnModel().getColumn(3).setMinWidth(100);
-            jTableProdutos.getColumnModel().getColumn(4).setMinWidth(50);
-        }
 
         b_cancelar.setText("Cancelar");
         b_cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -108,16 +132,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
 
         jLabel1.setText("Nome do produto:");
 
-        jLabel2.setText("ID do Produto");
-
-        c_idproduto.setEditable(false);
-        c_idproduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                c_idprodutoActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Descrição do Produto");
+        jLabel3.setText("Descrição");
 
         jLabel4.setText("Quantidade de estoque");
 
@@ -128,14 +143,6 @@ public class GerenciaProduto extends javax.swing.JFrame {
         });
 
         jLabel5.setText("Preço");
-
-        c_datacadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                c_datacadastroActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Data de cadastro");
 
         jLabel7.setText("Data de validade");
 
@@ -151,6 +158,19 @@ public class GerenciaProduto extends javax.swing.JFrame {
             }
         });
 
+        c_descricaoproduto.setColumns(20);
+        c_descricaoproduto.setLineWrap(true);
+        c_descricaoproduto.setRows(5);
+        c_descricaoproduto.setWrapStyleWord(true);
+        jScrollPane2.setViewportView(c_descricaoproduto);
+
+        c_tipoorg.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Preço (ASC)", "Preço (DSC)", "Nome", "Quantidade", "Validade" }));
+        c_tipoorg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                c_tipoorgActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,75 +178,70 @@ public class GerenciaProduto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 120, Short.MAX_VALUE)
                         .addComponent(b_cancelar)
                         .addGap(18, 18, 18)
                         .addComponent(b_alterar)
                         .addGap(18, 18, 18)
-                        .addComponent(b_apagar))
-                    .addComponent(c_quantidadeestoque, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(b_apagar)
+                        .addGap(487, 487, 487))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c_idproduto, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c_nomeproduto, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c_descricaoproduto, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(93, 93, 93)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(c_nomeproduto, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(c_quantidadeestoque, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(48, 48, 48)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(c_datavalidade, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(c_preco))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(c_datavalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c_datacadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(c_preco, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(351, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                            .addComponent(c_tipoorg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(17, 17, 17)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(c_tipoorg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
                     .addComponent(jLabel5))
-                .addGap(1, 1, 1)
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(c_idproduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(c_nomeproduto, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(c_preco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(c_nomeproduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c_datacadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(c_descricaoproduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(c_datavalidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(c_quantidadeestoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(c_quantidadeestoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(c_datavalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(b_cancelar)
                     .addComponent(b_alterar)
                     .addComponent(b_apagar))
-                .addGap(36, 36, 36))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -246,18 +261,8 @@ public class GerenciaProduto extends javax.swing.JFrame {
                 String descricao_produto = "";
                 int quantidade_estoque = 0;
                 double preco = 0.0;
-                Date data_cadastro;
+                Date data_cadastro = null;
                 Date data_validade;
-            
-            // ID
-            if (this.c_idproduto.getText().trim().length() <= 0) {
-                throw new Mensagens("O ID do produto deve ser número e maior que zero.");
-            } else {
-                id_produto = Integer.parseInt(this.c_idproduto.getText().trim());
-                if (id_produto <= 0) {
-                    throw new Mensagens("O ID do produto deve ser maior que zero.");
-                }
-            }
 
             // Nome
             if (this.c_nomeproduto.getText().trim().length() < 2) {
@@ -274,38 +279,40 @@ public class GerenciaProduto extends javax.swing.JFrame {
             }
 
             // Quantidade
-            if (this.c_quantidadeestoque.getText().trim().length() <= 0) {
-                throw new Mensagens("A quantidade do produto deve ser um número e maior que zero.");
+            String qtxt = this.c_quantidadeestoque.getText().trim();
+            if (qtxt.isEmpty()) {
+                throw new Mensagens("A quantidade do produto deve ser informada e maior que zero.");
             } else {
-                quantidade_estoque = Integer.parseInt(this.c_quantidadeestoque.getText().trim());
+                quantidade_estoque = Integer.parseInt(qtxt);
                 if (quantidade_estoque <= 0) {
                     throw new Mensagens("A quantidade do produto deve ser maior que zero.");
                 }
             }
 
             // Preço
-            if (this.c_preco.getText().trim().length() <= 0) {
-                throw new Mensagens("O preço do produto deve ser um número e maior que zero.");
+            String ptxt = this.c_preco.getText().trim();
+            if (ptxt.isEmpty()) {
+                throw new Mensagens("O preço do produto deve ser informado e maior que zero.");
             } else {
-                preco = Double.parseDouble(this.c_preco.getText().trim().replace(",", "."));
+                preco = Double.parseDouble(ptxt.replace(",", "."));
                 if (preco <= 0) {
                     throw new Mensagens("O preço do produto deve ser maior que zero.");
                 }
             }
             
+            // Data de validade (formato esperado dd/MM/yyyy)
             java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
             sdf.setLenient(false);
-
-            if (this.c_datacadastro.getText().trim().isEmpty()) {
-                throw new Mensagens("Informe a data de cadastro no formato dd/MM/yyyy.");
-            } else {
-                data_cadastro = java.sql.Date.valueOf(this.c_datacadastro.getText().trim());
-            }
 
             if (this.c_datavalidade.getText().trim().isEmpty()) {
                 throw new Mensagens("Informe a data de validade no formato dd/MM/yyyy.");
             } else {
-                data_validade = java.sql.Date.valueOf(this.c_datavalidade.getText().trim());
+                try {
+                    java.util.Date parsed = sdf.parse(this.c_datavalidade.getText().trim());
+                    data_validade = new java.sql.Date(parsed.getTime());
+                } catch (java.text.ParseException ex) {
+                    throw new Mensagens("Data de validade inválida. Use o formato dd/MM/yyyy.");
+                }
             }
 
                     // Verifica seleção na tabela
@@ -322,11 +329,9 @@ public class GerenciaProduto extends javax.swing.JFrame {
 
                 // limpa os campos
                 this.c_nomeproduto.setText("");
-                this.c_idproduto.setText("");
                 this.c_descricaoproduto.setText("");
                 this.c_quantidadeestoque.setText("");
                 this.c_preco.setText("");
-                this.c_datacadastro.setText("");
                 this.c_datavalidade.setText("");
                 JOptionPane.showMessageDialog(rootPane, "Produto alterado com sucesso!");
 
@@ -356,11 +361,9 @@ public class GerenciaProduto extends javax.swing.JFrame {
             String data_validade = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 6).toString();
 
             this.c_nomeproduto.setText(nome_produto);
-            this.c_idproduto.setText(id_produto);
             this.c_descricaoproduto.setText(descricao_produto);
             this.c_quantidadeestoque.setText(quantidade_estoque);
             this.c_preco.setText(preco);
-            this.c_datacadastro.setText(data_cadastro);
             this.c_datavalidade.setText(data_validade);
 
         }
@@ -386,11 +389,9 @@ public class GerenciaProduto extends javax.swing.JFrame {
 
                 // limpa os campos
                 this.c_nomeproduto.setText("");
-                this.c_idproduto.setText("");
                 this.c_descricaoproduto.setText("");
                 this.c_quantidadeestoque.setText("");
                 this.c_preco.setText("");
-                this.c_datacadastro.setText("");
                 this.c_datavalidade.setText("");
                     JOptionPane.showMessageDialog(rootPane, "Produto apagado com sucesso!");
 
@@ -408,17 +409,9 @@ public class GerenciaProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_b_apagarActionPerformed
 
-    private void c_idprodutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_idprodutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_c_idprodutoActionPerformed
-
     private void c_quantidadeestoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_quantidadeestoqueActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_c_quantidadeestoqueActionPerformed
-
-    private void c_datacadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_datacadastroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_c_datacadastroActionPerformed
 
     private void c_datavalidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_datavalidadeActionPerformed
         // TODO add your handling code here:
@@ -428,17 +421,27 @@ public class GerenciaProduto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_c_precoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    @SuppressWarnings("unchecked")
+    private void c_tipoorgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_c_tipoorgActionPerformed
+        carregaTabela();
+    }//GEN-LAST:event_c_tipoorgActionPerformed
+
     public void carregaTabela() {
 
         DefaultTableModel modelo = (DefaultTableModel) this.jTableProdutos.getModel();
         modelo.setNumRows(0);
 
         ArrayList<Produto> minhalista = new ArrayList<>();
-        minhalista = objproduto.getMinhaLista();
+        
+        int index = c_tipoorg.getSelectedIndex();
+
+        switch (index) {
+            case 0 -> minhalista = objproduto.getMinhaLista();
+            case 1 -> minhalista = objproduto.ordenarPorPrecoASC();
+            case 2 -> minhalista = objproduto.ordenarPorPrecoDESC();
+            case 3 -> minhalista = objproduto.ordenarPorNome();
+            case 4 -> minhalista = objproduto.ordenarPorQuantidade();
+            case 5 -> minhalista = objproduto.ordenarPorValidade();
+        }
 
         for (Produto p : minhalista) {
             modelo.addRow(new Object[]{
@@ -453,12 +456,9 @@ public class GerenciaProduto extends javax.swing.JFrame {
         }
     }
 
+
+
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -475,8 +475,6 @@ public class GerenciaProduto extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GerenciaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -485,27 +483,25 @@ public class GerenciaProduto extends javax.swing.JFrame {
             }
         });
         
-    }
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton b_alterar;
     private javax.swing.JButton b_apagar;
     private javax.swing.JButton b_cancelar;
-    private javax.swing.JTextField c_datacadastro;
     private javax.swing.JTextField c_datavalidade;
-    private javax.swing.JTextField c_descricaoproduto;
-    private javax.swing.JTextField c_idproduto;
+    private javax.swing.JTextArea c_descricaoproduto;
     private javax.swing.JTextField c_nomeproduto;
     private javax.swing.JTextField c_preco;
     private javax.swing.JTextField c_quantidadeestoque;
+    private javax.swing.JComboBox<String> c_tipoorg;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableProdutos;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,15 +10,16 @@ public class ProdutoDAO {
 
     public ProdutoDAO() {}
 
+    // -------------------------- CONEXÃO ---------------------------- //
 
     public Connection getConexao() {
         try {
             Class.forName("org.postgresql.Driver");
 
             return DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/postgres",
+                "jdbc:postgresql://localhost:5432/postgres", // coloque seu BD aqui
                 "postgres",
-                "2096" //
+                "2096"
             );
 
         } catch (Exception e) {
@@ -26,6 +27,8 @@ public class ProdutoDAO {
             return null;
         }
     }
+
+    // -------------------------- MAIOR ID ---------------------------- //
 
     public int maiorID() {
         int maiorID = 0;
@@ -48,6 +51,8 @@ public class ProdutoDAO {
         return maiorID;
     }
 
+    // -------------------------- LISTAR TODOS ---------------------------- //
+
     public ArrayList<Produto> getMinhaLista() {
 
         MinhaLista.clear();
@@ -66,7 +71,7 @@ public class ProdutoDAO {
                     res.getString("descricao_produto"),
                     res.getInt("quantidade_estoque"),
                     res.getDouble("preco"),
-                    res.getDate("data_cadastro"),  // automático
+                    res.getDate("data_cadastro"),
                     res.getDate("data_validade")
                 );
 
@@ -82,15 +87,80 @@ public class ProdutoDAO {
         return MinhaLista;
     }
 
-   
-    public ArrayList<Produto> listarPorValidade() {
+    // -------------------------- ORDENAÇÕES ---------------------------- //
+
+    public ArrayList<Produto> ordenarPorPrecoASC() {
 
         ArrayList<Produto> lista = new ArrayList<>();
 
         try {
             Statement stmt = this.getConexao().createStatement();
             ResultSet res = stmt.executeQuery(
-                "SELECT * FROM market_gestor ORDER BY data_validade ASC"
+                "SELECT * FROM market_gestor ORDER BY preco ASC"
+            );
+
+            while (res.next()) {
+                Produto p = new Produto(
+                    res.getInt("id_produto"),
+                    res.getString("nome_produto"),
+                    res.getString("descricao_produto"),
+                    res.getInt("quantidade_estoque"),
+                    res.getDouble("preco"),
+                    res.getDate("data_cadastro"),
+                    res.getDate("data_validade")
+                );
+                lista.add(p);
+            }
+
+            stmt.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ordenarPorPrecoASC: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+
+    public ArrayList<Produto> ordenarPorPrecoDESC() {
+
+        ArrayList<Produto> lista = new ArrayList<>();
+
+        try {
+            Statement stmt = this.getConexao().createStatement();
+            ResultSet res = stmt.executeQuery(
+                "SELECT * FROM market_gestor ORDER BY preco DESC"
+            );
+
+            while (res.next()) {
+                Produto p = new Produto(
+                    res.getInt("id_produto"),
+                    res.getString("nome_produto"),
+                    res.getString("descricao_produto"),
+                    res.getInt("quantidade_estoque"),
+                    res.getDouble("preco"),
+                    res.getDate("data_cadastro"),
+                    res.getDate("data_validade")
+                );
+                lista.add(p);
+            }
+
+            stmt.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ordenarPorPrecoDESC: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+
+    public ArrayList<Produto> ordenarPorNome() {
+
+        ArrayList<Produto> lista = new ArrayList<>();
+
+        try {
+            Statement stmt = this.getConexao().createStatement();
+            ResultSet res = stmt.executeQuery(
+                "SELECT * FROM market_gestor ORDER BY nome_produto ASC"
             );
 
             while (res.next()) {
@@ -111,15 +181,80 @@ public class ProdutoDAO {
             stmt.close();
 
         } catch (SQLException ex) {
-            System.out.println("Erro listarPorValidade: " + ex.getMessage());
+            System.out.println("Erro ordenarPorNome: " + ex.getMessage());
         }
 
         return lista;
     }
 
+    public ArrayList<Produto> ordenarPorQuantidade() {
+
+        ArrayList<Produto> lista = new ArrayList<>();
+
+        try {
+            Statement stmt = this.getConexao().createStatement();
+            ResultSet res = stmt.executeQuery(
+                "SELECT * FROM market_gestor ORDER BY quantidade_estoque DESC"
+            );
+
+            while (res.next()) {
+                Produto p = new Produto(
+                    res.getInt("id_produto"),
+                    res.getString("nome_produto"),
+                    res.getString("descricao_produto"),
+                    res.getInt("quantidade_estoque"),
+                    res.getDouble("preco"),
+                    res.getDate("data_cadastro"),
+                    res.getDate("data_validade")
+                );
+                lista.add(p);
+            }
+
+            stmt.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ordenarPorQuantidade: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+
+    public ArrayList<Produto> ordenarPorValidade() {
+
+        ArrayList<Produto> lista = new ArrayList<>();
+
+        try {
+            Statement stmt = this.getConexao().createStatement();
+            ResultSet res = stmt.executeQuery(
+                "SELECT * FROM market_gestor ORDER BY data_validade ASC"
+            );
+
+            while (res.next()) {
+                Produto p = new Produto(
+                    res.getInt("id_produto"),
+                    res.getString("nome_produto"),
+                    res.getString("descricao_produto"),
+                    res.getInt("quantidade_estoque"),
+                    res.getDouble("preco"),
+                    res.getDate("data_cadastro"),
+                    res.getDate("data_validade")
+                );
+                lista.add(p);
+            }
+
+            stmt.close();
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ordenarPorValidade: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+
+    // -------------------------- INSERT ---------------------------- //
+
     public boolean insertProdutoBD(Produto p) {
 
-        // ⛔ NÃO enviamos data_cadastro (agora automática)
         String sql =
             "INSERT INTO market_gestor (nome_produto, descricao_produto, quantidade_estoque, preco, data_validade) " +
             "VALUES (?,?,?,?,?)";
@@ -143,6 +278,8 @@ public class ProdutoDAO {
         }
     }
 
+    // -------------------------- DELETE ---------------------------- //
+
     public boolean deleteProdutoBD(int id) {
 
         try {
@@ -157,7 +294,8 @@ public class ProdutoDAO {
         return true;
     }
 
-  
+    // -------------------------- UPDATE ---------------------------- //
+
     public boolean updateProdutoBD(Produto p) {
 
         String sql =
@@ -183,7 +321,8 @@ public class ProdutoDAO {
         }
     }
 
-  
+    // -------------------------- CARREGAR UM PRODUTO ---------------------------- //
+
     public Produto carregaProduto(int id) {
 
         Produto p = new Produto();
@@ -201,7 +340,7 @@ public class ProdutoDAO {
                 p.setDescricao_produto(res.getString("descricao_produto"));
                 p.setQuantidade_estoque(res.getInt("quantidade_estoque"));
                 p.setPreco(res.getDouble("preco"));
-                p.setData_cadastro(res.getDate("data_cadastro")); // automático
+                p.setData_cadastro(res.getDate("data_cadastro"));
                 p.setData_validade(res.getDate("data_validade"));
             }
 
@@ -214,4 +353,5 @@ public class ProdutoDAO {
         return p;
     }
 }
+
 

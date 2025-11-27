@@ -34,6 +34,7 @@ public class CadastroProduto extends javax.swing.JFrame {
         a_descrição = new javax.swing.JLabel();
         c_descrição = new javax.swing.JTextField();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Produto");
         setResizable(false);
 

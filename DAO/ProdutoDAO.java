@@ -17,7 +17,7 @@ public class ProdutoDAO {
             Class.forName("org.postgresql.Driver");
 
             return DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/postgres", // coloque seu BD aqui
+                "jdbc:postgresql://localhost:5432/postgres",
                 "postgres",
                 "2096"
             );

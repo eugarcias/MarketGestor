@@ -3,14 +3,11 @@ package View;
 import DAO.ProdutoDAO;
 import Model.Produto;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
 
 public class CadastroProduto extends javax.swing.JFrame {
 
-    private Produto objproduto; // cria o v�nculo com o Produto.java
+    private Produto objproduto; // cria o vinculo com o Produto.java
 
     public CadastroProduto() {
         initComponents();

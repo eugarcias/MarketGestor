@@ -7,17 +7,12 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.Date;
 import java.awt.Font;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Insets;
 import javax.swing.table.JTableHeader;
-import javax.swing.border.Border;
-import DAO.ProdutoDAO;
 import java.text.SimpleDateFormat;
 
 public class GerenciaProduto extends javax.swing.JFrame {
 
-    private Produto objproduto; // cria o vinculo com o objproduto
+    private Produto objproduto; // cria o vínculo com o objproduto
 
     public GerenciaProduto() {
         initComponents();
@@ -476,13 +471,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GerenciaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GerenciaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GerenciaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GerenciaProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 

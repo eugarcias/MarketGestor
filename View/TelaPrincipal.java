@@ -121,13 +121,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void a_cadastrar_produtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_cadastrar_produtoActionPerformed
-        // TODO add your handling code here:
-         CadastroProduto telaCadastro = new CadastroProduto();
+        CadastroProduto telaCadastro = new CadastroProduto();
         telaCadastro. setVisible(true);
     }//GEN-LAST:event_a_cadastrar_produtoActionPerformed
 
     private void a_gerenciar_produtosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_a_gerenciar_produtosActionPerformed
-        // TODO add your handling code here:
+        GerenciaProduto telaGerencia = new GerenciaProduto();
+        telaGerencia. setVisible(true);
     }//GEN-LAST:event_a_gerenciar_produtosActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

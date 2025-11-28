@@ -102,36 +102,36 @@ public class ProdutoDAO {
 
     //  RELATÓRIOS UNIFICADOS  //
     // Relatório Produtos Vencidos
-    public ArrayList<Produto> relatorioProdutosVencidos(String orderBy, String orderDir) {
-        return listarComFiltroOrdenacao("data_validade < CURRENT_DATE", orderBy, orderDir, 0, null);
+    public ArrayList<Produto> relatorioProdutosVencidos() {
+        return listarComFiltroOrdenacao("data_validade < CURRENT_DATE", "nome_produto", "ASC", 0, null);
     }
 
     // Relatório Produtos Prestes a Vencer
-    public ArrayList<Produto> relatorioProdutosPrestesAVencer(int dias, String orderBy, String orderDir) {
+    public ArrayList<Produto> relatorioProdutosPrestesAVencer(int dias) {
         // usamos INTERVAL com concat seguro via SQL literal (dias é int vindo do app)
         String where = "data_validade BETWEEN CURRENT_DATE AND CURRENT_DATE + INTERVAL '" + dias + " days'";
-        return listarComFiltroOrdenacao(where, orderBy, orderDir, 0, null);
+        return listarComFiltroOrdenacao(where, "data_validade", "ASC", 0, null);
     }
 
     // Relatório Produtos Mais Caros 
-    public ArrayList<Produto> relatorioProdutosMaisCaros(int topN) {
-        return listarComFiltroOrdenacao(null, "preco", "DESC", topN, null);
+    public ArrayList<Produto> relatorioProdutosMaisCaros() {
+        return listarComFiltroOrdenacao(null, "preco", "DESC", 0, null);
     }
 
     // Relatório Produtos Mais Baratos 
-    public ArrayList<Produto> relatorioProdutosMaisBaratos(int topN) {
-        return listarComFiltroOrdenacao(null, "preco", "ASC", topN, null);
+    public ArrayList<Produto> relatorioProdutosMaisBaratos() {
+        return listarComFiltroOrdenacao(null, "preco", "ASC", 0, null);
     }
 
     // Estoque baixo 
-    public ArrayList<Produto> relatorioEstoqueBaixo(int limite, String orderBy, String orderDir) {
+    public ArrayList<Produto> relatorioEstoqueBaixo(int limite) {
         List<Object> params = List.of(limite);
-        return listarComFiltroOrdenacao("quantidade_estoque <= ?", orderBy, orderDir, 0, params);
+        return listarComFiltroOrdenacao("quantidade_estoque <= ?", "quantidade_estoque", "DESC", 0, params);
     }
 
     // Produtos sem estoque
-    public ArrayList<Produto> relatorioSemEstoque(String orderBy, String orderDir) {
-        return listarComFiltroOrdenacao("quantidade_estoque = 0", orderBy, orderDir, 0, null);
+    public ArrayList<Produto> relatorioSemEstoque() {
+        return listarComFiltroOrdenacao("quantidade_estoque = 0", "nome_produto", "ASC", 0, null);
     }
 
     // Relatório geral com ordenação passada pela view

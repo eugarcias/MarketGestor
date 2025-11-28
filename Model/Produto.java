@@ -130,6 +130,30 @@ public class Produto {
         return dao.ordenarPorValidade();
     }
     
+    public ArrayList relatorioProdutosVencidos() {
+        return dao.relatorioProdutosVencidos();
+    }
+    
+    public ArrayList relatorioProdutosPrestesAVencer(int dias) {
+        return dao.relatorioProdutosPrestesAVencer(dias);
+    }
+    
+    public ArrayList relatorioProdutosMaisCaros() {
+        return dao.relatorioProdutosMaisCaros();
+    }
+    
+    public ArrayList relatorioProdutosMaisBaratos() {
+        return dao.relatorioProdutosMaisBaratos();
+    }
+        
+    public ArrayList relatorioEstoqueBaixo(int limite) {
+        return dao.relatorioEstoqueBaixo(limite);
+    }
+        
+    public ArrayList relatorioSemEstoque() {
+        return dao.relatorioSemEstoque();
+    }
+    
     // Cadastra novo produto
     public boolean InsertProdutoBD(String nome_produto, String descricao_produto, int quantidade_estoque, double preco, 
             Date data_cadastro, Date data_validade) throws SQLException {

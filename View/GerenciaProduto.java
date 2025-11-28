@@ -405,18 +405,13 @@ public class GerenciaProduto extends javax.swing.JFrame {
             String descricao_produto = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 2).toString();
             String quantidade_estoque = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 3).toString();
             String preco = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 4).toString();
-            String data_validadeString = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 6).toString();
-
-            // converter a data de formato SQL (2025-02-25) para formato dd/mm/yyyy (25/02/2025)
-            Date data_validade = Date.valueOf(data_validadeString);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            String formattedDate = formatter.format(data_validade);
+            String data_validade = this.jTableProdutos.getValueAt(this.jTableProdutos.getSelectedRow(), 6).toString();
             
             this.c_nomeproduto.setText(nome_produto);
             this.c_descricaoproduto.setText(descricao_produto);
             this.c_quantidadeestoque.setText(quantidade_estoque);
             this.c_preco.setText(preco);
-            this.c_datavalidade.setText(formattedDate);
+            this.c_datavalidade.setText(data_validade);
 
         }
     }//GEN-LAST:event_jTableProdutosMouseClicked
@@ -507,14 +502,18 @@ public class GerenciaProduto extends javax.swing.JFrame {
         }
 
         for (Produto p : minhalista) {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); // Converter as datas para dd/mm/yyyy.
+            String formattedDataCadastro = formatter.format(p.getData_cadastro());
+            String formattedDataValidade = formatter.format(p.getData_validade());
+            
             modelo.addRow(new Object[]{
                 p.getId_produto(),
                 p.getNome_produto(),
                 p.getDescricao_produto(),
                 p.getQuantidade_estoque(),
                 p.getPreco(),
-                p.getData_cadastro(),
-                p.getData_validade(),
+                formattedDataCadastro,
+                formattedDataValidade,
             });
         }
     }
@@ -555,15 +554,19 @@ public class GerenciaProduto extends javax.swing.JFrame {
             break;
         }
         
-        for (Produto p : minhalista) {
+    for (Produto p : minhalista) {
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); // Converter as datas para dd/mm/yyyy.
+            String formattedDataCadastro = formatter.format(p.getData_cadastro());
+            String formattedDataValidade = formatter.format(p.getData_validade());
+
             modelo.addRow(new Object[]{
                 p.getId_produto(),
                 p.getNome_produto(),
                 p.getDescricao_produto(),
                 p.getQuantidade_estoque(),
                 p.getPreco(),
-                p.getData_cadastro(),
-                p.getData_validade(),
+                formattedDataCadastro,
+                formattedDataValidade,
             });
         }
     }

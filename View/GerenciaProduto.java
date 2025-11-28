@@ -330,11 +330,11 @@ public class GerenciaProduto extends javax.swing.JFrame {
             // Quantidade
             String qtxt = this.c_quantidadeestoque.getText().trim();
             if (qtxt.isEmpty()) {
-                throw new Mensagens("A quantidade do produto deve ser informada e maior que zero.");
+                throw new Mensagens("A quantidade do produto deve ser informada.");
             } else {
                 quantidade_estoque = Integer.parseInt(qtxt);
-                if (quantidade_estoque <= 0) {
-                    throw new Mensagens("A quantidade do produto deve ser maior que zero.");
+                if (quantidade_estoque < 0) {
+                    throw new Mensagens("A quantidade do produto não pode ser negativa.");
                 }
             }
 
